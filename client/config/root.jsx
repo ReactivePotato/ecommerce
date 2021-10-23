@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Provider, useSelector } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import { Switch, Route, Redirect, StaticRouter } from 'react-router-dom'
@@ -8,6 +8,9 @@ import store, { history } from '../redux'
 import Home from '../components/home'
 import DummyView from '../components/dummy-view'
 import NotFound from '../components/404'
+import MainPage from '../components/mainpage'
+import RepoList from '../components/repolist'
+import RepoDesc from '../components/repodesc'
 
 import Startup from './startup'
 
@@ -43,16 +46,27 @@ const RouterSelector = (props) =>
   typeof window !== 'undefined' ? <ConnectedRouter {...props} /> : <StaticRouter {...props} />
 
 const RootComponent = (props) => {
+  const [userName, setUserName] = useState('')
+
+  const onButtonPush = (val) => {
+    setUserName(val)
+  }
+
   return (
     <Provider store={store}>
       <RouterSelector history={history} location={props.location} context={props.context}>
         <Startup>
           <Switch>
-            <Route exact path="/" component={DummyView} />
+            <Route exact path="/" component={() => <MainPage onClickEvent={onButtonPush} />} />
+            <Route
+              exact
+              path="/:userName"
+              component={() => <RepoList userInputName={userName} />}
+            />
+            <Route exact path="/:userName/:repositoryName" component={RepoDesc} />
             <Route exact path="/dashboard" component={Home} />
             <PrivateRoute exact path="/hidden-route" component={DummyView} />
             <OnlyAnonymousRoute exact path="/anonymous-route" component={DummyView} />
-
             <Route component={NotFound} />
           </Switch>
         </Startup>
