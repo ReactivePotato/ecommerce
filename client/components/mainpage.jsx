@@ -3,12 +3,12 @@ import Head from './head'
 import { history } from '../redux'
 
 const MainPage = (props) => {
-  const [userName, setUserName] = useState('write name here')
+  const [userName, setUserName] = useState('')
 
   return (
     <div className="m-5 box h-30 w-60 p-1 border-2 rounded border-gray-500 bg-gray-300 shadow-xl">
       <Head title="Main Page" />
-      <div className="mb-1 flex justify-center font-bold">go to:</div>
+      <div className="mb-1 flex justify-center font-bold">Search for user:</div>
       <input id="input-field"
         type="text"
         onChange={(event) => setUserName(event.target.value)}
