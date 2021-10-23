@@ -5,7 +5,7 @@ import Head from './head'
 import Header from './header'
 
 
-const MainPage = () => {
+const RepoList = () => {
   const [userRepo, setUserRepo] = useState([])
   const { userName } = useParams()
 
@@ -33,6 +33,6 @@ const MainPage = () => {
 
 }
 
-MainPage.propTypes = {}
+RepoList.propTypes = {}
 
-export default React.memo(MainPage)
+export default React.memo(RepoList)
