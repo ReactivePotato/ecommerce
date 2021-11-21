@@ -132,12 +132,12 @@
         "mini-css-extract-plugin": "^2.2.0",
         "node-hot-loader": "^1.21.4",
         "node-sass": "^6.0.1",
-        "nodemon": "^2.0.13",
+        "nodemon": "^2.0.15",
         "postcss": "^8.3.6",
         "postcss-import": "^14.0.2",
         "postcss-loader": "^6.1.1",
         "postcss-preset-env": "^6.7.0",
-        "prettier": "^2.3.2",
+        "prettier": "^2.4.1",
         "raw-loader": "^4.0.2",
         "regenerator-runtime": "^0.13.9",
         "rimraf": "3.0.2",
@@ -147,7 +147,7 @@
         "terser-webpack-plugin": "^5.1.4",
         "thread-loader": "^3.0.4",
         "url-loader": "4.1.1",
-        "webpack": "^5.49.0",
+        "webpack": "^5.64.0",
         "webpack-cli": "^4.7.2",
         "webpack-dev-server": "^3.11.2",
         "webpack-node-externals": "^3.0.0",
@@ -155,7 +155,8 @@
     },
     "nodemonConfig": {
         "ignore": [
-            "*.hot-update.json"
+            "*.hot-update.json",
+            "goods.json"
         ]
     },
     "husky": {

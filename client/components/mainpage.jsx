@@ -9,7 +9,8 @@ const MainPage = (props) => {
     <div className="m-5 box h-30 w-60 p-1 border-2 rounded border-gray-500 bg-gray-300 shadow-xl">
       <Head title="Main Page" />
       <div className="mb-1 flex justify-center font-bold">Search for user:</div>
-      <input id="input-field"
+      <input
+        id="input-field"
         type="text"
         onChange={(event) => setUserName(event.target.value)}
         value={userName}
@@ -17,7 +18,8 @@ const MainPage = (props) => {
       />
 
       <div className="flex justify-center">
-        <button id="search-button"
+        <button
+          id="search-button"
           type="button"
           onClick={() => {
             props.onClickEvent(userName)

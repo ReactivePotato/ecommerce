@@ -11,6 +11,9 @@ import NotFound from '../components/404'
 import MainPage from '../components/mainpage'
 import RepoList from '../components/repolist'
 import RepoDesc from '../components/repodesc'
+import StoreMainPage from '../pages/storemainpage'
+import Basket from '../pages/basket'
+import Logs from '../pages/logs'
 
 import Startup from './startup'
 
@@ -57,7 +60,10 @@ const RootComponent = (props) => {
       <RouterSelector history={history} location={props.location} context={props.context}>
         <Startup>
           <Switch>
-            <Route exact path="/" component={() => <MainPage onClickEvent={onButtonPush} />} />
+            <Route exact path="/" component={() => <StoreMainPage />} />
+            <Route exact path="/basket" component={() => <Basket />} />
+            <Route exact path="/logs" component={() => <Logs />} />
+            <Route exact path="/main" component={() => <MainPage onClickEvent={onButtonPush} />} />
             <Route
               exact
               path="/:userName"

@@ -9,19 +9,24 @@ const RepoDesc = () => {
   const { userName, repositoryName } = useParams()
   const [repoData, setRepoData] = useState('')
 
-  return <div>
-    <Head title="Main Page" />
-    <Header reponame={repositoryName} />
+  return (
+    <div>
+      <Head title="Main Page" />
+      <Header reponame={repositoryName} />
 
-    { useEffect(async () => {
-      await axios.get(`https://raw.githubusercontent.com/${userName}/${repositoryName}/master/README.md`)
-      .then((it) => {
-        setRepoData(it.data)
-      })
-      .catch(() => {})
-    }, [repositoryName, userName])}
-    <div id="description" className="mt-3 ml-3 mr-3"><ReactMarkdown>{repoData}</ReactMarkdown></div>
-  </div>
+      {useEffect(async () => {
+        await axios
+          .get(`https://raw.githubusercontent.com/${userName}/${repositoryName}/master/README.md`)
+          .then((it) => {
+            setRepoData(it.data)
+          })
+          .catch(() => {})
+      }, [repositoryName, userName])}
+      <div id="description" className="mt-3 ml-3 mr-3">
+        <ReactMarkdown>{repoData}</ReactMarkdown>
+      </div>
+    </div>
+  )
 }
 
 RepoDesc.propTypes = {}
