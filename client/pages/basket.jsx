@@ -33,33 +33,43 @@ export default function Basket() {
             </tr>
           </thead>
           <tbody>
-            { itemsInBasket.map((item, index) => {
+            {itemsInBasket.map((item, index) => {
               return (<tr key={index}>
-              <td className="border border-green-600 pl-1 pr-1">
-                <div className="product__title">{item.item_title}</div>
-                <div className="product__image"><img className="h-32 w-32 mb-1" src={item.item_image} alt="img" /></div>
-                <div className="product__id">{item.item_id}</div>
-              </td>
-              <td className="border border-green-600 pl-1 pr-1">
-                <div className="product__price">{(+(Object.values(currency)[Object.values(currencyType)] * item.item_price)).toFixed(2)}</div>
-              </td>
-              <td className="border border-green-600 pl-1 pr-1">
-                <div className="product__amount">{item.item_amount}</div>
-              </td>
-              <td className="border border-green-600 pl-1 pr-1">
-                <div className="product__total_price">{((Object.values(currency)[Object.values(currencyType)] * item.item_price * item.item_amount)).toFixed(2)}</div>
-              </td>
-              <td className="border border-green-600 pl-1 pr-1">
-                <div className="flex flex-col">
-                  <button type="button" onClick={() => dispatch({ type: REMOVE_GOOD_FROM_BASKET, payload: item.item_id })}>
-                    <div className="border border-black pl-2 pr-2 rounded-md transition duration-300 ease-in-out hover:bg-green-300 shadow-lg">
-                      -
-                    </div>
-                  </button>
-                </div>
-              </td>
-            </tr>  
-            )})}     
+                <td className="border border-green-600 pl-1 pr-1">
+                  <div className="product__title">{item.item_title}</div>
+                  <div className="product__image"><img className="h-32 w-32 mb-1" src={item.item_image} alt="img" /></div>
+                  <div className="product__id">{item.item_id}</div>
+                </td>
+                <td className="border border-green-600 pl-1 pr-1">
+                  <div className="product__price">{(+(Object.values(currency)[Object.values(currencyType)] * item.item_price)).toFixed(2)}</div>
+                </td>
+                <td className="border border-green-600 pl-1 pr-1">
+                  <div className="product__amount">{item.item_amount}</div>
+                </td>
+                <td className="border border-green-600 pl-1 pr-1">
+                  <div className="product__total_price">{((Object.values(currency)[Object.values(currencyType)] * item.item_price * item.item_amount)).toFixed(2)}</div>
+                </td>
+                <td className="border border-green-600 pl-1 pr-1">
+                  <div className="flex flex-col">
+                    <button type="button" onClick={() => dispatch({
+                      type: REMOVE_GOOD_FROM_BASKET, payload: {
+                        item_title: item.item_title,
+                        item_image: item.item_image,
+                        item_id: item.item_id,
+                        item_price: (+(Object.values(currency)[Object.values(currencyType)] * item.item_price)).toFixed(2),
+                        item_currency: Object.keys(currency)[Object.values(currencyType)],
+                        item_amount: 1
+                      }
+                    })}>
+                      <div className="border border-black pl-2 pr-2 rounded-md transition duration-300 ease-in-out hover:bg-green-300 shadow-lg">
+                        -
+                      </div>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>
