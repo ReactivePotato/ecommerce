@@ -39,7 +39,7 @@ export default function Storemainpage() {
     <div>
       <Storeheader />
       <div className="flex flex-wrap">
-        <Gooddesc list={list} />
+        <Gooddesc list={list.slice(-10)} />
       </div>
     </div>
   )

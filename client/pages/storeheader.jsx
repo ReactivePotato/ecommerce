@@ -82,10 +82,12 @@ export default function Storeheader() {
             </div>
           </div>
           <div className="justify-self-end pr-2 border border-dashed rounded-md ml-5 flex flex-row font-normal">
-          <div className="ml-3 transition duration-200 ease-in-out hover:bg-green-600 hover:text-gray-100"><Link to="/basket">
-          <div className="ml-1">cart-count: 3</div>
-          <div className="ml-1">cart-amount: $500</div>
-          </Link></div>
+            <div className="ml-3 transition duration-200 ease-in-out hover:bg-green-600 hover:text-gray-100">
+              <Link to="/basket">
+                <div className="ml-1">cart-count: 3</div>
+                <div className="ml-1">cart-amount: $500</div>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
