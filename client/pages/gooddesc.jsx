@@ -20,8 +20,7 @@ export default function Gooddesc({ list }) {
 
   return list.map((item, idx) => {
     return (
-      <div className="m-3" key={idx}>
-        <div className="card border border-black bg-green-100 p-3 shadow-lg rounded-md w-40 h-120">
+      <div className="m-3 card border border-black bg-green-100 p-3 shadow-lg rounded-md w-40 h-120" key={idx}>
           <div className=".card__title h-5 pl-1 pb-12 font-bold">{item.title}</div>
           <div className=".card__image border-gray-400 rounded-md ">
             <img className="h-32 w-32" src={item.image} alt="img" />
@@ -32,16 +31,17 @@ export default function Gooddesc({ list }) {
             </div>
             <div className=".currency">{Object.keys(currency)[Object.values(currencyType)]}</div>
           </div>
-          <div className="pt-0 pb-1"><div className=".card__product-amount flex justify-center">
+          <div className="pt-0 pb-1"><div className=".card__product-amount absolute justify-center">
             {currentItemAmount.map((it) => {
               if (it.item_id === item.id) {
-                return `In cart: ${it.item_amount}`
+                return <div>{`In cart: ${it.item_amount}`}</div>
               }
               return ''
             })}
           </div>
           </div>
-          <div className="flex justify-center ">
+          <div className="pt-10">
+          <div className="flex justify-center">
             <button
               type="button"
               onClick={() =>
@@ -65,7 +65,7 @@ export default function Gooddesc({ list }) {
               </div>
             </button>
           </div>
-        </div>
+          </div>
       </div>
     )
   })
