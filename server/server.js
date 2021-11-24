@@ -78,7 +78,6 @@ server.get('/api/v1/getlogs', async (req, res) => {
     .catch((err) => err)
 })
 
-
 server.post('/api/v1/writelog', (req, res) => {
   readFile(`${__dirname}/logs.json`, { encoding: 'utf-8' })
     .then((data) => {
