@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
 
 const ADD_GOOD_TO_BASKET = 'ADD_GOOD_TO_BASKET'
 
@@ -44,7 +45,11 @@ export default function Gooddesc({ list }) {
           <div className="flex justify-center">
             <button
               type="button"
-              onClick={() =>
+              onClick={() => {
+                axios.post('api/v1/writelog', {
+                  act: `add ${item.title} to the backet`,
+                  time: (+new Date())
+                })
                 dispatch({
                   type: ADD_GOOD_TO_BASKET,
                   payload: {
@@ -58,7 +63,7 @@ export default function Gooddesc({ list }) {
                     item_amount: 1
                   }
                 })
-              }
+              }}
             >
               <div className="border border-gray-400 p-2 rounded-md transition duration-300 ease-in-out hover:bg-green-300 mt-3 shadow-lg">
                 Add to cart

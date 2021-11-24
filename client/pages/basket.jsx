@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
 import Storeheader from './storeheader'
+
 
 const REMOVE_GOOD_FROM_BASKET = 'REMOVE_GOOD_FROM_BASKET'
 
@@ -70,7 +72,11 @@ export default function Basket() {
                     <div className="flex flex-col">
                       <button
                         type="button"
-                        onClick={() =>
+                        onClick={() => {
+                          axios.post('api/v1/writelog', {
+                            act: `remove ${item.item_title} from the backet`,
+                            time: (+new Date())
+                          })
                           dispatch({
                             type: REMOVE_GOOD_FROM_BASKET,
                             payload: {
@@ -85,7 +91,7 @@ export default function Basket() {
                               item_amount: 1
                             }
                           })
-                        }
+                        }}
                       >
                         <div className="border border-black pl-2 pr-2 rounded-md transition duration-300 ease-in-out hover:bg-green-300 shadow-lg">
                           -

@@ -11,8 +11,10 @@ import axios from 'axios'
 import config from './config'
 import Html from '../client/html'
 
-require('colors')
+
 const { readFile, writeFile } = require('fs').promises
+
+require('colors')
 
 // let Root
 // try {
@@ -63,10 +65,23 @@ server.get('/api/v1/currency', async (req, res) => {
     })
 })
 
+
+server.post('/api/v1/writelog', (req, res) => {
+  readFile(`${__dirname}/logs.json`, { encoding: 'utf-8' })
+  .then((data) => {
+  const fileData = JSON.parse(data)
+  fileData.push(req.body)
+  writeFile(`${__dirname}/logs.json`, JSON.stringify(fileData), { encoding: 'utf-8' })
+    res.json(fileData)
+  })
+
+})
+
 server.use('/api/', (req, res) => {
   res.status(404)
   res.end()
 })
+
 
 // const [htmlStart, htmlEnd] = Html({
 //   body: 'separator',

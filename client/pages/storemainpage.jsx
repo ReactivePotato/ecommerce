@@ -20,7 +20,7 @@ export default function Storemainpage() {
 
   const getCurrency = async () => {
     await axios
-      .get('https://api.exchangerate.host/latest?base=USD&symbols=USD,EUR,CAD')
+      .get('/api/v1/currency')
       .then(({ data }) => {
         dispatch({
           type: SET_CURRENCY,
