@@ -48,7 +48,7 @@ export default function Gooddesc({ list }) {
               onClick={() => {
                 axios.post('api/v1/writelog', {
                   act: `add ${item.title} to the backet`,
-                  time: (+new Date())
+                  time: +new Date()
                 })
                 dispatch({
                   type: ADD_GOOD_TO_BASKET,

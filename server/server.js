@@ -12,7 +12,7 @@ import config from './config'
 import Html from '../client/html'
 
 
-const { readFile, writeFile } = require('fs').promises
+const { readFile, writeFile, unlink } = require('fs').promises
 
 require('colors')
 
@@ -65,16 +65,28 @@ server.get('/api/v1/currency', async (req, res) => {
     })
 })
 
+server.delete('/api/v1/logs', async (req, res) => {
+  await unlink(`${__dirname}/logs.json`)
+  res.json({ status: 'deleted' })
+})
+
+server.get('/api/v1/getlogs', async (req, res) => {
+  await readFile(`${__dirname}/logs.json`, { encoding: 'utf-8' })
+    .then((data) => {
+      res.json(JSON.parse(data))
+    })
+    .catch((err) => err)
+})
+
 
 server.post('/api/v1/writelog', (req, res) => {
   readFile(`${__dirname}/logs.json`, { encoding: 'utf-8' })
-  .then((data) => {
-  const fileData = JSON.parse(data)
-  fileData.push(req.body)
-  writeFile(`${__dirname}/logs.json`, JSON.stringify(fileData), { encoding: 'utf-8' })
-    res.json(fileData)
-  })
-
+    .then((data) => {
+      const fileData = JSON.parse(data)
+      fileData.push(req.body)
+      writeFile(`${__dirname}/logs.json`, JSON.stringify(fileData), { encoding: 'utf-8' })
+      res.json(fileData)
+    })
 })
 
 server.use('/api/', (req, res) => {
@@ -127,7 +139,7 @@ if (config.isSocketsEnabled) {
   const echo = sockjs.createServer()
   echo.on('connection', (conn) => {
     connections.push(conn)
-    conn.on('data', async () => {})
+    conn.on('data', async () => { })
 
     conn.on('close', () => {
       connections = connections.filter((c) => c.readyState !== 3)

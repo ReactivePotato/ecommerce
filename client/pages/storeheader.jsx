@@ -63,6 +63,11 @@ export default function Storeheader() {
                 type="button"
                 id="sort-price"
                 onClick={() => {
+                  const title = 'price'
+                  axios.post('api/v1/writelog', {
+                    act: `sort by ${title}`,
+                    time: +new Date()
+                  })
                   dispatch({ type: ORDER_BY_PRICE })
                 }}
               >
@@ -75,6 +80,11 @@ export default function Storeheader() {
                 type="button"
                 id="sort-name"
                 onClick={() => {
+                  const title = 'name'
+                  axios.post('api/v1/writelog', {
+                    act: `sort by ${title}`,
+                    time: +new Date()
+                  })
                   dispatch({ type: ORDER_BY_NAME })
                 }}
               >
@@ -90,7 +100,7 @@ export default function Storeheader() {
                   const currency2 = 'USD'
                   axios.post('api/v1/writelog', {
                     act: `change currency from ${currency1} to ${currency2}`,
-                    time: (+new Date())
+                    time: +new Date()
                   })
                   dispatch({ type: CURRENCY_TYPE_USD })
                 }}
@@ -106,7 +116,7 @@ export default function Storeheader() {
                   const currency2 = 'EUR'
                   axios.post('api/v1/writelog', {
                     act: `change currency from ${currency1} to ${currency2}`,
-                    time: (+new Date())
+                    time: +new Date()
                   })
                   dispatch({ type: CURRENCY_TYPE_EUR })
                 }}
@@ -123,7 +133,7 @@ export default function Storeheader() {
                   const currency2 = 'CAD'
                   axios.post('api/v1/writelog', {
                     act: `change currency from ${currency1} to ${currency2}`,
-                    time: (+new Date())
+                    time: +new Date()
                   })
                   dispatch({ type: CURRENCY_TYPE_CAD })
                 }}

@@ -11,6 +11,7 @@ export default function Storemainpage() {
   const dispatch = useDispatch()
   const currentStore = useSelector((store) => store)
   const [list, setList] = useState([])
+  const url = 'main'
 
   const getGoods = () => {
     return axios.get('/api/v1/goods').then(({ data }) => {
@@ -33,6 +34,10 @@ export default function Storemainpage() {
     dispatch({ type: CURRENCY_TYPE_USD })
     await getCurrency()
     await getGoods()
+    await axios.post('api/v1/writelog', {
+      act: `navigate to ${url} page`,
+      time: +new Date()
+    })
   }, currentStore)
 
   return (

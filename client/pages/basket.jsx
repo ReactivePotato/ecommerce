@@ -11,6 +11,7 @@ export default function Basket() {
   const itemsInBasket = useSelector((state) => state.basketReducer)
   const currency = useSelector((store) => store.currency)
   const currencyType = useSelector((store) => store.currencyType)
+  const url = 'basket'
 
   const getTotalAmount = (items) => {
     return items.reduce((acc, rec) => {
@@ -22,6 +23,11 @@ export default function Basket() {
       return acc + +oneItemPrice
     }, 0)
   }
+
+  axios.post('api/v1/writelog', {
+    act: `navigate to ${url} page`,
+    time: +new Date()
+  })
 
   return (
     <div>
@@ -75,7 +81,7 @@ export default function Basket() {
                         onClick={() => {
                           axios.post('api/v1/writelog', {
                             act: `remove ${item.item_title} from the backet`,
-                            time: (+new Date())
+                            time: +new Date()
                           })
                           dispatch({
                             type: REMOVE_GOOD_FROM_BASKET,
