@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import Storeheader from './storeheader'
 
-
 const REMOVE_GOOD_FROM_BASKET = 'REMOVE_GOOD_FROM_BASKET'
 
 export default function Basket() {

@@ -1,4 +1,3 @@
-
 const SET_CURRENCY = 'SET_CURRENCY'
 
 const initialState = {

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
+import Cookies from 'universal-cookie'
+
 import Storeheader from './storeheader'
 import Gooddesc from './gooddesc'
 
@@ -12,6 +14,7 @@ export default function Storemainpage() {
   const currentStore = useSelector((store) => store)
   const [list, setList] = useState([])
   const url = 'main'
+  const cookies = new Cookies()
 
   const getGoods = () => {
     return axios.get('/api/v1/goods').then(({ data }) => {
@@ -20,14 +23,12 @@ export default function Storemainpage() {
   }
 
   const getCurrency = async () => {
-    await axios
-      .get('/api/v1/currency')
-      .then(({ data }) => {
-        dispatch({
-          type: SET_CURRENCY,
-          payload: data.rates
-        })
+    await axios.get('/api/v1/currency').then(({ data }) => {
+      dispatch({
+        type: SET_CURRENCY,
+        payload: data.rates
       })
+    })
   }
 
   useEffect(async () => {
@@ -38,6 +39,8 @@ export default function Storemainpage() {
       act: `navigate to ${url} page`,
       time: +new Date()
     })
+    cookies.set('start-date', new Date().toString(), { path: '/' })
+    fetch('/api/v1/test/cookies')
   }, currentStore)
 
   return (

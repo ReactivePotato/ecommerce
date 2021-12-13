@@ -7,14 +7,27 @@ import sockjs from 'sockjs'
 // import React from 'react'
 
 import cookieParser from 'cookie-parser'
+import jwt from 'jsonwebtoken'
+import mongooseService from './services/mongoose'
+import passportJWT from './services/passport'
+import passport from 'passport'
 import axios from 'axios'
 import config from './config'
 import Html from '../client/html'
-
+import User from './model/User.model'
 
 const { readFile, writeFile, unlink } = require('fs').promises
 
 require('colors')
+
+mongooseService.connect()
+
+// const user = new User({
+//   email: 'test@gmail.com',
+//   password: 'abra'
+// })
+// user.save()
+
 
 // let Root
 // try {
@@ -31,13 +44,31 @@ const server = express()
 
 const middleware = [
   cors(),
+  passport.initialize(),
   express.static(path.resolve(__dirname, '../dist/assets')),
   express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }),
   express.json({ limit: '50mb', extended: true }),
   cookieParser()
 ]
 
+passport.use('jwt', passportJWT.jwt)
+
 middleware.forEach((it) => server.use(it))
+
+server.post('/api/v1/auth', async (req, res) => {
+  console.log(req.body)
+  try {
+    const user = await User.findAndValidateUser(req.body)
+    const payload = {uid: user.id}
+    console.log(payload)
+    const token = jwt.sign(payload, config.secret, {expiresIn: '1800s'})
+    res.json({ status: 'ok', token })
+  }
+  catch (err) {
+    console.log(err)
+    res.json({ status: 'error', err })
+  }
+})
 
 server.get('/api/v1/goods', async (req, res) => {
   await readFile(`${__dirname}/goods.json`, { encoding: 'utf-8' })
@@ -78,21 +109,25 @@ server.get('/api/v1/getlogs', async (req, res) => {
     .catch((err) => err)
 })
 
+server.get('/api/v1/test/cookies', (req, res) => {
+  console.log(req.cookies)
+  res.cookie('serverCookie', 'test', { maxAge: 90000, httpOnly: true })
+  res.json({ status: req.cookies })
+})
+
 server.post('/api/v1/writelog', (req, res) => {
-  readFile(`${__dirname}/logs.json`, { encoding: 'utf-8' })
-    .then((data) => {
-      const fileData = JSON.parse(data)
-      fileData.push(req.body)
-      writeFile(`${__dirname}/logs.json`, JSON.stringify(fileData), { encoding: 'utf-8' })
-      res.json(fileData)
-    })
+  readFile(`${__dirname}/logs.json`, { encoding: 'utf-8' }).then((data) => {
+    const fileData = JSON.parse(data)
+    fileData.push(req.body)
+    writeFile(`${__dirname}/logs.json`, JSON.stringify(fileData), { encoding: 'utf-8' })
+    res.json(fileData)
+  })
 })
 
 server.use('/api/', (req, res) => {
   res.status(404)
   res.end()
 })
-
 
 // const [htmlStart, htmlEnd] = Html({
 //   body: 'separator',

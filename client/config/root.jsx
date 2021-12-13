@@ -60,17 +60,17 @@ const RootComponent = (props) => {
       <RouterSelector history={history} location={props.location} context={props.context}>
         <Startup>
           <Switch>
-            <Route exact path="/" component={() => <StoreMainPage />} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/basket" component={() => <Basket />} />
             <Route exact path="/logs" component={() => <Logs />} />
             <Route exact path="/main" component={() => <MainPage onClickEvent={onButtonPush} />} />
+            <Route exact path="/store" component={() => <StoreMainPage />} />
             <Route
               exact
               path="/:userName"
               component={() => <RepoList userInputName={userName} />}
             />
             <Route exact path="/:userName/:repositoryName" component={RepoDesc} />
-            <Route exact path="/dashboard" component={Home} />
             <PrivateRoute exact path="/hidden-route" component={DummyView} />
             <OnlyAnonymousRoute exact path="/anonymous-route" component={DummyView} />
             <Route component={NotFound} />
