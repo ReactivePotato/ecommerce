@@ -62,7 +62,8 @@ server.post('/api/v1/auth', async (req, res) => {
     const payload = {uid: user.id}
     console.log(payload)
     const token = jwt.sign(payload, config.secret, {expiresIn: '1800s'})
-    res.json({ status: 'ok', token })
+    user.password = ''
+    res.json({ status: 'ok', token, user })
   }
   catch (err) {
     console.log(err)
