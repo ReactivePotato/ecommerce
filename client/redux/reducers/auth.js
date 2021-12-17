@@ -1,4 +1,4 @@
-import history from '../history'
+// import history from '../history'
 
 const UPDATE_LOGIN = 'UPDATE_LOGIN'
 const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
@@ -50,7 +50,7 @@ export function signIn() {
     }).then((resp) => resp.json())
       .then((data) => {
         dispatch({ type: LOGIN, token: data.token, user: data.user })
-        history.push('/store')
+        // history.push('/store')
       })
   }
 }

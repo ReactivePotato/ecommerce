@@ -14,7 +14,7 @@ import RepoDesc from '../components/repodesc'
 import StoreMainPage from '../pages/storemainpage'
 import Basket from '../pages/basket'
 import Logs from '../pages/logs'
-import LoginForm from '../components/login'
+// import LoginForm from '../components/login'
 
 import Startup from './startup'
 
@@ -64,12 +64,12 @@ const RootComponent = (props) => {
       <RouterSelector history={history} location={props.location} context={props.context}>
         <Startup>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={() => <Home />} />
             <Route exact path="/basket" component={() => <Basket />} />
             <Route exact path="/logs" component={() => <Logs />} />
             <Route exact path="/main" component={() => <MainPage onClickEvent={onButtonPush} />} />
-            <Route exact path="/store" component={() => <StoreMainPage />} />
-            <Route exact path="/login" component={() => <LoginForm />} />
+            {/* <Route exact path="/store" component={() => <StoreMainPage />} /> */}
+            {/* <Route exact path="/login" component={() => <LoginForm />} /> */}
             <Route
               exact
               path="/:userName"
