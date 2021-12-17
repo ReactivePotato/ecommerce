@@ -3,9 +3,9 @@ const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 const LOGIN = 'LOGIN'
 
 const initialState = {
-  email: "",
-  password: "",
-  token: ""
+  email: '',
+  password: '',
+  token: ''
 }
 
 export default (state = initialState, action) => {
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
       return { ...state, password: action.password }
     }
     case LOGIN: {
-      return { ...state, token: action.token, password: "" }
+      return { ...state, token: action.token, password: '' }
     }
     default:
       return state
@@ -44,7 +44,8 @@ export function signIn() {
         email,
         password
       })
-    }).then((resp) => resp.json())
+    })
+      .then((resp) => resp.json())
       .then((data) => {
         dispatch({ type: LOGIN, token: data.token })
       })

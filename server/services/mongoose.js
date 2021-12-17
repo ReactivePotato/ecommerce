@@ -10,7 +10,7 @@ mongoose.connection.on('error', (err) => {
   process.exit(1)
 })
 
-exports.connect = async(mongoURL=config.mongoURL) => {
+exports.connect = async (mongoURL = config.mongoURL) => {
   mongoose.connect(mongoURL, {
     useUnifiedTopology: true,
     useNewUrlParser: true

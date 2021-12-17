@@ -28,7 +28,6 @@ mongooseService.connect()
 // })
 // user.save()
 
-
 // let Root
 // try {
 //   // eslint-disable-next-line import/no-unresolved
@@ -59,12 +58,11 @@ server.post('/api/v1/auth', async (req, res) => {
   console.log(req.body)
   try {
     const user = await User.findAndValidateUser(req.body)
-    const payload = {uid: user.id}
+    const payload = { uid: user.id }
     console.log(payload)
-    const token = jwt.sign(payload, config.secret, {expiresIn: '1800s'})
+    const token = jwt.sign(payload, config.secret, { expiresIn: '1800s' })
     res.json({ status: 'ok', token })
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err)
     res.json({ status: 'error', err })
   }
@@ -173,7 +171,7 @@ if (config.isSocketsEnabled) {
   const echo = sockjs.createServer()
   echo.on('connection', (conn) => {
     connections.push(conn)
-    conn.on('data', async () => { })
+    conn.on('data', async () => {})
 
     conn.on('close', () => {
       connections = connections.filter((c) => c.readyState !== 3)
