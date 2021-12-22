@@ -51,7 +51,7 @@ export function signIn() {
       .then((resp) => resp.json())
       .then((data) => {
         dispatch({ type: LOGIN, token: data.token, user: data.user })
-        history.push('/store')
+        history.push('/private')
       })
   }
 }
