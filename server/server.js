@@ -54,6 +54,22 @@ passport.use('jwt', passportJWT.jwt)
 
 middleware.forEach((it) => server.use(it))
 
+server.get('/api/v1/auth', async (req, res) => {
+  try {
+    const jwtUser = jwt.verify(req.cookies.token, config.secret)
+    const user = await User.findById(jwtUser.uid)
+
+    const payload = { uid: user.id }
+    const token = jwt.sign(payload, config.secret, { expiresIn: '1800s' })
+    user.password = ''
+    res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 48 })
+    res.json({ status: 'ok', token, user })
+  } catch (err) {
+    console.log(err)
+    res.json({ status: 'error', err })
+  }
+})
+
 server.post('/api/v1/auth', async (req, res) => {
   console.log(req.body)
   try {
@@ -62,6 +78,7 @@ server.post('/api/v1/auth', async (req, res) => {
     console.log(payload)
     const token = jwt.sign(payload, config.secret, { expiresIn: '1800s' })
     user.password = ''
+    res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 48 })
     res.json({ status: 'ok', token, user })
   } catch (err) {
     console.log(err)
