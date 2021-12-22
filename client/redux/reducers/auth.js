@@ -39,8 +39,49 @@ export function updatePasswordField(password) {
 
 export function trySignIn() {
   return (dispatch) => {
-    fetch('/api/v1/auth')
-      .then((resp) => resp.json())
+    try {
+      fetch('/api/v1/auth')
+        .then((r) => r.json())
+        .then((data) => {
+          dispatch({ type: LOGIN, token: data.token, user: data.user })
+          history.push('/private')
+        })
+        .catch((err) => console.log(err))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export function tryGetUserInfo() {
+  return () => {
+    try {
+      fetch('/api/v1/user-info')
+        .then((r) => r.json())
+        .then((data) => {
+          console.log(data)
+        })
+        .catch((err) => err)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export function signIn() {
+  return (dispatch, getState) => {
+    const { email, password } = getState().auth
+    fetch('/api/v1/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    })
+      .then((r) => r.json())
       .then((data) => {
         dispatch({ type: LOGIN, token: data.token, user: data.user })
         history.push('/private')
