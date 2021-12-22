@@ -64,14 +64,14 @@ const RootComponent = (props) => {
             <Route exact path="/basket" component={() => <Basket />} />
             <Route exact path="/logs" component={() => <Logs />} />
             <Route exact path="/main" component={() => <MainPage onClickEvent={onButtonPush} />} />
-            <Route exact path="/store" component={() => <StoreMainPage />} />
+            {/* <Route exact path="/store" component={() => <StoreMainPage />} /> */}
             <Route
               exact
               path="/:userName"
               component={() => <RepoList userInputName={userName} />}
             />
             <Route exact path="/:userName/:repositoryName" component={RepoDesc} />
-            <PrivateRoute exact path="/hidden-route" component={DummyView} />
+            <PrivateRoute exact path="/store" component={() => <StoreMainPage />} />
             <OnlyAnonymousRoute exact path="/anonymous-route" component={DummyView} />
             <Route component={NotFound} />
           </Switch>
